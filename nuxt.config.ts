@@ -1,0 +1,35 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2025-05-15',
+  devtools: { enabled: true },
+  ssr: true,
+  modules: [
+    '@nuxtjs/tailwindcss', // Módulo do Tailwind CSS
+    '@pinia/nuxt',        // Módulo do Pinia
+  ],
+
+  components: [
+    {
+      path: "~/components",
+    }
+  ],
+
+  css: [
+    '~/assets/css/tailwind.css',
+  ],
+
+  runtimeConfig: {
+    // Estas chaves estão disponíveis apenas no lado do servidor
+    // Ex: para usar o Firebase Admin SDK
+    
+    // As chaves em 'public' são expostas para o lado do cliente
+    public: {
+      firebaseApiKey: process.env.NUXT_PUBLIC_FIREBASE_API_KEY,
+      firebaseAuthDomain: process.env.NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+      firebaseProjectId: process.env.NUXT_PUBLIC_FIREBASE_PROJECT_ID,
+      firebaseStorageBucket: process.env.NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+      firebaseMessagingSenderId: process.env.NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+      firebaseAppId: process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
+    },
+  },
+})

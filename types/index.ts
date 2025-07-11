@@ -1,0 +1,92 @@
+// types/index.ts
+
+export interface LessonVocab {
+  word: string;
+}
+
+export interface LessonQuestion {
+  question: string;
+  answer: string;
+}
+
+export interface LessonGrammarItem {
+  col1: string;
+  col2: string;
+}
+
+export interface LessonGrammarTable {
+  title: string;
+  items: LessonGrammarItem[];
+}
+
+// Formato usado no formulário (arrays de tuplas)
+export interface LessonFormData {
+  title: string;
+  vocab: string[];
+  questions: [string, string][];
+  grammar: {
+    title: string;
+    items: [string, string][];
+  }[];
+}
+
+// Formato salvo no Firestore (objetos)
+export interface LessonFirestoreData {
+  title: string;
+  vocab: string[];
+  questions: LessonQuestion[];
+  grammar: LessonGrammarTable[];
+}
+
+// Formato unificado para exibição (suporta ambos os formatos)
+export interface LessonData {
+  id?: string;
+  title: string;
+  vocab?: string[];
+  questions?: [string, string][] | LessonQuestion[];
+  grammar?: {
+    title: string;
+    items?: [string, string][] | LessonGrammarItem[];
+  }[];
+}
+
+// Para uso em listas/navegação
+export interface LessonMeta {
+  id: string;
+  title: string;
+}
+
+// Estado de autenticação
+export interface AuthUser {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+}
+
+// Respostas de API
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+}
+
+// Props dos componentes
+export interface LessonViewProps {
+  lesson: LessonData;
+}
+
+export interface VocabSectionProps {
+  vocab: string[];
+}
+
+export interface QuestionSectionProps {
+  questions: LessonQuestion[];
+}
+
+export interface GrammarSectionProps {
+  grammarTables: {
+    title: string;
+    items: [string, string][];
+  }[];
+}
