@@ -393,7 +393,7 @@
     <!-- WhatsApp Float Button -->
     <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
       <button 
-        @click="contactWhatsApp" 
+        @click="contactWhatsAppFloat" 
         class="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 sm:p-4 shadow-lg transform hover:scale-110 transition-all duration-200 animate-pulse focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         aria-label="Entrar em contato via WhatsApp"
         type="button"
@@ -407,14 +407,31 @@
 </template>
 
 <script setup lang="ts">
+// GTM tracking
+const { trackPageView, trackWhatsAppClick } = useGTMIndex()
+
 // State para mobile menu
 const mobileMenuOpen = ref(false);
 
-// Função genérica para redirecionar para WhatsApp
-const redirectToWhatsApp = (message?: string) => {
+// Rastrear page view quando a página carregar
+onMounted(() => {
+  trackPageView()
+})
+
+// Função genérica para redirecionar para WhatsApp com tracking
+const redirectToWhatsApp = (
+  message: string, 
+  buttonName: string, 
+  buttonLocation: string, 
+  buttonText: string,
+  messageType: 'greeting' | 'info_request' | 'support' = 'greeting'
+) => {
   const phoneNumber = "5567992171768";
-  const defaultMessage = "Olá! Tenho interesse no curso EasyTalk e gostaria de saber mais informações.";
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message || defaultMessage)}`;
+  
+  // Tracking GTM antes de redirecionar
+  trackWhatsAppClick(buttonName, buttonLocation, buttonText, phoneNumber, messageType)
+  
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   
   // Abre em nova aba
   window.open(whatsappUrl, '_blank');
@@ -426,57 +443,81 @@ const redirectToWhatsApp = (message?: string) => {
 // Funções específicas para cada tipo de interesse
 const startFreeTrial = () => {
   const message = "🚀 Olá! Quero começar com a primeira aula grátis do EasyTalk. Quando posso agendar?";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(
+    message, 
+    'cta_free_trial', 
+    'hero_section', 
+    'Começar Agora',
+    'greeting'
+  );
 };
 
 const contactWhatsApp = () => {
   const message = "💬 Olá! Gostaria de tirar algumas dúvidas sobre o curso EasyTalk. Vocês podem me ajudar?";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(
+    message, 
+    'general_contact', 
+    'multiple_sections', 
+    'WhatsApp / Tirar Dúvidas no WhatsApp',
+    'info_request'
+  );
+};
+
+// Função específica para o botão flutuante
+const contactWhatsAppFloat = () => {
+  const message = "💬 Olá! Vi seu site e gostaria de saber mais sobre o curso EasyTalk. Podem me ajudar?";
+  redirectToWhatsApp(
+    message, 
+    'whatsapp_float_button', 
+    'floating_button', 
+    'WhatsApp Flutuante',
+    'info_request'
+  );
 };
 
 const scheduleClass = () => {
   const message = "📅 Olá! Tenho interesse em agendar uma aula avulsa de inglês. Quais horários estão disponíveis?";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(message, 'schedule_single_class', 'pricing_section', 'Agendar Aula', 'info_request');
 };
 
 const contractPackage8 = () => {
   const message = "📦 Olá! Tenho interesse no pacote de 8 aulas individuais (2x por semana) por R$ 240/mês. Como funciona?";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(message, 'contract_package_8', 'pricing_section', 'Contratar Pacote 8 aulas', 'info_request');
 };
 
 const contractPackage12 = () => {
   const message = "🎯 Olá! Quero contratar o pacote de 12 aulas individuais (3x por semana) por R$ 360/mês. Quando posso começar?";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(message, 'contract_package_12', 'pricing_section', 'Contratar Pacote 12 aulas', 'info_request');
 };
 
 const formGroup2 = () => {
   const message = "👥 Olá! Tenho interesse em formar um grupo de 2 pessoas para aulas de inglês (R$ 25 por aula/pessoa). Como posso organizar isso?";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(message, 'form_group_2', 'pricing_section', 'Formar Grupo 2 pessoas', 'info_request');
 };
 
 const formGroup3 = () => {
   const message = "👥 Olá! Tenho interesse em formar um grupo de 3 pessoas para aulas de inglês (R$ 20 por aula/pessoa). Como posso organizar isso?";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(message, 'form_group_3', 'pricing_section', 'Formar Grupo 3 pessoas', 'info_request');
 };
 
 const formGroup4 = () => {
   const message = "👥 Olá! Tenho interesse em formar um grupo de 4 pessoas para aulas de inglês (R$ 15 por aula/pessoa). Como posso organizar isso?";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(message, 'form_group_4', 'pricing_section', 'Formar Grupo 4 pessoas', 'info_request');
 };
 
 const formGroup5 = () => {
   const message = "👥 Olá! Tenho interesse em formar um grupo de 5 pessoas para aulas de inglês (R$ 10 por aula/pessoa). Como posso organizar isso?";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(message, 'form_group_5', 'pricing_section', 'Formar Grupo 5 pessoas', 'info_request');
 };
 
 const getSupport = () => {
   const message = "🆘 Olá! Preciso de ajuda e suporte sobre o curso EasyTalk. Vocês podem me atender?";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(message, 'support_contact', 'footer', 'Suporte', 'support');
 };
 
 const getContact = () => {
   const message = "📞 Olá! Gostaria de entrar em contato para conhecer melhor o EasyTalk. Estou interessado(a) em aprender inglês!";
-  redirectToWhatsApp(message);
+  redirectToWhatsApp(message, 'general_footer_contact', 'footer', 'Contato', 'info_request');
 };
 
 // SEO Meta tags
