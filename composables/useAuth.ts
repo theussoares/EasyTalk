@@ -29,9 +29,7 @@ export const useAuth = () => {
             // Usa popup para login imediato
             const result = await signInWithPopup(nuxtApp.$auth as any, provider);
             
-            if (result && result.user) {
-                console.log('Login bem-sucedido via popup:', result.user.email);
-                
+            if (result && result.user) {                
                 // Atualiza o state do usuário imediatamente
                 user.value = {
                     uid: result.user.uid,
@@ -90,9 +88,7 @@ export const useAuth = () => {
             if (nuxtApp.$auth) {
                 isListenerInitialized.value = true;
                 
-                onAuthStateChanged(nuxtApp.$auth as any, (firebaseUser) => {
-                    console.log('Auth state changed:', firebaseUser?.email || 'logged out');
-                    
+                onAuthStateChanged(nuxtApp.$auth as any, (firebaseUser) => {                    
                     // Cria uma cópia segura do user para evitar problemas de reatividade cross-origin
                     if (firebaseUser) {
                         user.value = {

@@ -12,10 +12,29 @@ export const useLessons = () => {
 
             if (lessonSnap.exists()) {
                 const data = lessonSnap.data() as LessonFirestoreData;
-                return { 
-                    id: lessonSnap.id, 
-                    ...data 
+                                
+                // Deserializa os dados do Firestore para o formato LessonData
+                const lessonData: LessonData = {
+                    id: lessonSnap.id,
+                    title: data.title,
+                    vocab: data.vocab,
+                    // Deserializa vocabGroups se existir e for string
+                    vocabGroups: data.vocabGroups ? 
+                        (typeof data.vocabGroups === 'string' ? JSON.parse(data.vocabGroups) : data.vocabGroups) 
+                        : undefined,
+                    // Deserializa vocabSections se existir
+                    vocabSections: data.vocabSections?.map(section => ({
+                        title: section.title,
+                        words: section.words,
+                        wordGroups: section.wordGroups ? 
+                            (typeof section.wordGroups === 'string' ? JSON.parse(section.wordGroups) : section.wordGroups)
+                            : undefined
+                    })),
+                    questions: data.questions,
+                    grammar: data.grammar
                 };
+                                
+                return lessonData;
             } else {
                 console.warn(`Lição com ID ${id} não encontrada no Firestore.`);
                 return null;

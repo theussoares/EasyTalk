@@ -7,28 +7,34 @@
           <div class="flex items-center">
             <h1 class="text-xl sm:text-2xl font-bold text-indigo-600 dark:text-indigo-400">EasyTalk</h1>
           </div>
-          <nav class="hidden md:flex items-center space-x-6">
-            <a href="#features" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors text-sm font-medium">Recursos</a>
-            <a href="#pricing" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors text-sm font-medium">Preços</a>
-            <button @click="startFreeTrial" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium">
+          <nav class="hidden md:flex items-center space-x-6" role="navigation" aria-label="Navegação principal">
+            <a href="#features" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md px-2 py-1">Recursos</a>
+            <a href="#pricing" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md px-2 py-1">Preços</a>
+            <button @click="startFreeTrial" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" type="button">
               Começar Agora
             </button>
           </nav>
           
           <!-- Mobile menu button -->
-          <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button 
+            @click="mobileMenuOpen = !mobileMenuOpen" 
+            class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            :aria-label="mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'"
+            :aria-expanded="mobileMenuOpen"
+            type="button"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
         </div>
         
         <!-- Mobile menu -->
-        <div v-if="mobileMenuOpen" class="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
+        <div v-if="mobileMenuOpen" class="md:hidden py-4 border-t border-gray-200 dark:border-gray-700" role="navigation" aria-label="Menu móvel">
           <div class="flex flex-col space-y-3">
-            <a href="#features" @click="mobileMenuOpen = false" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors py-2">Recursos</a>
-            <a href="#pricing" @click="mobileMenuOpen = false" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors py-2">Preços</a>
-            <button @click="startFreeTrial" class="bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-colors text-center mt-2">
+            <a href="#features" @click="mobileMenuOpen = false" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md">Recursos</a>
+            <a href="#pricing" @click="mobileMenuOpen = false" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md">Preços</a>
+            <button @click="startFreeTrial" class="bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-colors text-center mt-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" type="button">
               Começar Agora
             </button>
           </div>
@@ -37,9 +43,9 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="pt-8 pb-12 sm:pt-16 sm:pb-20 px-4 sm:px-6 lg:px-8">
+    <section class="pt-8 pb-12 sm:pt-16 sm:pb-20 px-4 sm:px-6 lg:px-8" aria-labelledby="hero-heading">
       <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
+        <h1 id="hero-heading" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
           Aprenda Inglês de Forma
           <span class="text-indigo-600 dark:text-indigo-400 block sm:inline">Rápida e Eficaz</span>
         </h1>
@@ -49,10 +55,18 @@
         
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
-          <button @click="startFreeTrial" class="bg-indigo-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+          <button 
+            @click="startFreeTrial" 
+            class="bg-indigo-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            type="button"
+          >
             🚀 Começar Agora - Grátis
           </button>
-          <button @click="contactWhatsApp" class="border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-200">
+          <button 
+            @click="contactWhatsApp" 
+            class="border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            type="button"
+          >
             💬 WhatsApp
           </button>
         </div>
@@ -72,10 +86,10 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-12 sm:py-20 bg-white dark:bg-gray-800">
+    <section id="features" class="py-12 sm:py-20 bg-white dark:bg-gray-800" aria-labelledby="features-heading">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 sm:mb-16">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 id="features-heading" class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Por que escolher o EasyTalk?
           </h2>
           <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
@@ -83,25 +97,25 @@
           </p>
         </div>
         
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          <div class="text-center p-6 rounded-2xl bg-gray-50 dark:bg-gray-700 hover:shadow-lg transition-shadow">
-            <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" role="list">
+          <div class="text-center p-6 rounded-2xl bg-gray-50 dark:bg-gray-700 hover:shadow-lg transition-shadow" role="listitem">
+            <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
               <span class="text-2xl">🎯</span>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Método Focado</h3>
             <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Lições estruturadas que cobrem gramática, vocabulário e conversação de forma integrada</p>
           </div>
           
-          <div class="text-center p-6 rounded-2xl bg-gray-50 dark:bg-gray-700 hover:shadow-lg transition-shadow">
-            <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div class="text-center p-6 rounded-2xl bg-gray-50 dark:bg-gray-700 hover:shadow-lg transition-shadow" role="listitem">
+            <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
               <span class="text-2xl">⚡</span>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Resultados Rápidos</h3>
             <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Veja progresso real em semanas, não meses. Nosso método acelera seu aprendizado</p>
           </div>
           
-          <div class="text-center p-6 rounded-2xl bg-gray-50 dark:bg-gray-700 hover:shadow-lg transition-shadow sm:col-span-2 lg:col-span-1">
-            <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div class="text-center p-6 rounded-2xl bg-gray-50 dark:bg-gray-700 hover:shadow-lg transition-shadow sm:col-span-2 lg:col-span-1" role="listitem">
+            <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
               <span class="text-2xl">📱</span>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Suporte Personalizado</h3>
@@ -112,10 +126,10 @@
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="py-12 sm:py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="pricing" class="py-12 sm:py-20 bg-gray-50 dark:bg-gray-900" aria-labelledby="pricing-heading">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 sm:mb-16">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 id="pricing-heading" class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Preços Transparentes e Justos
           </h2>
           <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300">
@@ -126,37 +140,37 @@
         <!-- Aulas Individuais -->
         <div class="mb-16">
           <h3 class="text-2xl font-bold text-gray-900 dark:text-white text-center mb-8">Aulas Individuais</h3>
-          <div class="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+          <div class="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto" role="list">
             <!-- Aula Avulsa -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-shadow">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-shadow" role="listitem">
               <div class="text-center">
                 <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Aula Avulsa</h4>
                 <div class="mb-6">
                   <span class="text-3xl font-bold text-gray-900 dark:text-white">R$ 40</span>
                   <span class="text-gray-600 dark:text-gray-300">/aula</span>
                 </div>
-                <ul class="text-left space-y-3 mb-6">
+                <ul class="text-left space-y-3 mb-6" role="list">
                   <li class="flex items-center text-gray-600 dark:text-gray-300">
-                    <span class="text-green-500 mr-3 text-lg">✓</span>
+                    <span class="text-green-500 mr-3 text-lg" aria-hidden="true">✓</span>
                     Aula individual de 1h
                   </li>
                   <li class="flex items-center text-gray-600 dark:text-gray-300">
-                    <span class="text-green-500 mr-3 text-lg">✓</span>
+                    <span class="text-green-500 mr-3 text-lg" aria-hidden="true">✓</span>
                     Flexibilidade total
                   </li>
                   <li class="flex items-center text-gray-600 dark:text-gray-300">
-                    <span class="text-green-500 mr-3 text-lg">✓</span>
+                    <span class="text-green-500 mr-3 text-lg" aria-hidden="true">✓</span>
                     Material personalizado
                   </li>
                 </ul>
-                <button @click="scheduleClass" class="w-full bg-gray-600 text-white py-3 rounded-xl hover:bg-gray-700 transition-colors font-medium">
+                <button @click="scheduleClass" class="w-full bg-gray-600 text-white py-3 rounded-xl hover:bg-gray-700 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" type="button">
                   Agendar Aula
                 </button>
               </div>
             </div>
 
             <!-- 8 Aulas Individual -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 border-2 border-indigo-600 relative hover:shadow-2xl transition-all">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 border-2 border-indigo-600 relative hover:shadow-2xl transition-all" role="listitem">
               <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <span class="bg-indigo-600 text-white px-4 py-1 rounded-full text-sm font-semibold">Mais Popular</span>
               </div>
@@ -167,28 +181,28 @@
                   <span class="text-gray-600 dark:text-gray-300">/mês</span>
                 </div>
                 <p class="text-sm text-indigo-600 dark:text-indigo-400 mb-4">R$ 30 por aula (economia de R$ 80)</p>
-                <ul class="text-left space-y-3 mb-6">
+                <ul class="text-left space-y-3 mb-6" role="list">
                   <li class="flex items-center text-gray-600 dark:text-gray-300">
-                    <span class="text-green-500 mr-3 text-lg">✓</span>
+                    <span class="text-green-500 mr-3 text-lg" aria-hidden="true">✓</span>
                     2x por semana
                   </li>
                   <li class="flex items-center text-gray-600 dark:text-gray-300">
-                    <span class="text-green-500 mr-3 text-lg">✓</span>
+                    <span class="text-green-500 mr-3 text-lg" aria-hidden="true">✓</span>
                     Acompanhamento contínuo
                   </li>
                   <li class="flex items-center text-gray-600 dark:text-gray-300">
-                    <span class="text-green-500 mr-3 text-lg">✓</span>
+                    <span class="text-green-500 mr-3 text-lg" aria-hidden="true">✓</span>
                     Material incluído
                   </li>
                 </ul>
-                <button @click="contractPackage8" class="w-full bg-indigo-600 text-white py-3 rounded-xl hover:bg-indigo-700 transition-colors font-medium">
+                <button @click="contractPackage8" class="w-full bg-indigo-600 text-white py-3 rounded-xl hover:bg-indigo-700 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" type="button">
                   Contratar Pacote
                 </button>
               </div>
             </div>
 
             <!-- 12 Aulas Individual -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-shadow">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-shadow" role="listitem">
               <div class="text-center">
                 <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4">12 Aulas</h4>
                 <div class="mb-6">
@@ -196,21 +210,21 @@
                   <span class="text-gray-600 dark:text-gray-300">/mês</span>
                 </div>
                 <p class="text-sm text-green-600 dark:text-green-400 mb-4">R$ 30 por aula (economia de R$ 120)</p>
-                <ul class="text-left space-y-3 mb-6">
+                <ul class="text-left space-y-3 mb-6" role="list">
                   <li class="flex items-center text-gray-600 dark:text-gray-300">
-                    <span class="text-green-500 mr-3 text-lg">✓</span>
+                    <span class="text-green-500 mr-3 text-lg" aria-hidden="true">✓</span>
                     3x por semana
                   </li>
                   <li class="flex items-center text-gray-600 dark:text-gray-300">
-                    <span class="text-green-500 mr-3 text-lg">✓</span>
+                    <span class="text-green-500 mr-3 text-lg" aria-hidden="true">✓</span>
                     Progresso acelerado
                   </li>
                   <li class="flex items-center text-gray-600 dark:text-gray-300">
-                    <span class="text-green-500 mr-3 text-lg">✓</span>
+                    <span class="text-green-500 mr-3 text-lg" aria-hidden="true">✓</span>
                     Suporte extra
                   </li>
                 </ul>
-                <button @click="contractPackage12" class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-xl hover:from-green-700 hover:to-green-800 transition-colors font-medium">
+                <button @click="contractPackage12" class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-xl hover:from-green-700 hover:to-green-800 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" type="button">
                   Contratar Pacote
                 </button>
               </div>
@@ -221,7 +235,7 @@
         <!-- Aulas em Grupo -->
         <div>
           <h3 class="text-2xl font-bold text-gray-900 dark:text-white text-center mb-8">Aulas em Grupo</h3>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto" role="list">
             <!-- 2 Pessoas -->
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-shadow">
               <div class="text-center">
@@ -302,19 +316,27 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-12 sm:py-20 bg-indigo-600 dark:bg-indigo-800">
+    <section class="py-12 sm:py-20 bg-indigo-600 dark:bg-indigo-800" aria-labelledby="cta-heading">
       <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
+        <h2 id="cta-heading" class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
           Pronto para Transformar seu Inglês?
         </h2>
         <p class="text-lg sm:text-xl text-indigo-100 mb-6 sm:mb-8 leading-relaxed">
           Junte-se a milhares de pessoas que já dominaram o inglês com nosso método revolucionário
         </p>
         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
-          <button @click="startFreeTrial" class="bg-white text-indigo-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg">
+          <button 
+            @click="startFreeTrial" 
+            class="bg-white text-indigo-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600"
+            type="button"
+          >
             🚀 Começar Agora - Primeira Aula Grátis
           </button>
-          <button @click="contactWhatsApp" class="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-white hover:text-indigo-600 transition-all duration-200">
+          <button 
+            @click="contactWhatsApp" 
+            class="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-white hover:text-indigo-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600"
+            type="button"
+          >
             💬 Tirar Dúvidas no WhatsApp
           </button>
         </div>
@@ -322,7 +344,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8 sm:py-12">
+    <footer class="bg-gray-900 text-white py-8 sm:py-12" role="contentinfo">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           <div class="sm:col-span-2 lg:col-span-1">
@@ -332,29 +354,31 @@
           
           <div>
             <h4 class="font-semibold mb-4">Links Rápidos</h4>
-            <ul class="space-y-2">
-              <li><a href="#features" class="text-gray-300 hover:text-white transition-colors">Recursos</a></li>
-              <li><a href="#pricing" class="text-gray-300 hover:text-white transition-colors">Preços</a></li>
-            </ul>
+            <nav role="navigation" aria-label="Links do rodapé">
+              <ul class="space-y-2">
+                <li><a href="#features" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-md">Recursos</a></li>
+                <li><a href="#pricing" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-md">Preços</a></li>
+              </ul>
+            </nav>
           </div>
           
           <div>
             <h4 class="font-semibold mb-4">Suporte</h4>
             <ul class="space-y-2">
-              <li><button @click="getSupport" class="text-gray-300 hover:text-white transition-colors">Central de Ajuda</button></li>
-              <li><button @click="getContact" class="text-gray-300 hover:text-white transition-colors">Fale Conosco</button></li>
-              <li><button @click="contactWhatsApp" class="text-gray-300 hover:text-white transition-colors">WhatsApp</button></li>
+              <li><button @click="getSupport" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-md" type="button">Central de Ajuda</button></li>
+              <li><button @click="getContact" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-md" type="button">Fale Conosco</button></li>
+              <li><button @click="contactWhatsApp" class="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-md" type="button">WhatsApp</button></li>
             </ul>
           </div>
           
           <div>
             <h4 class="font-semibold mb-4">Contato</h4>
-            <button @click="getContact" class="flex items-center text-gray-300 hover:text-white transition-colors mb-2">
-              <span class="mr-2">📱</span>
+            <button @click="getContact" class="flex items-center text-gray-300 hover:text-white transition-colors mb-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-md" type="button">
+              <span class="mr-2" aria-hidden="true">📱</span>
               <span class="text-sm">+55 67 99217-1768</span>
             </button>
-            <button @click="contactWhatsApp" class="flex items-center text-gray-300 hover:text-white transition-colors">
-              <span class="mr-2">💬</span>
+            <button @click="contactWhatsApp" class="flex items-center text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-md" type="button">
+              <span class="mr-2" aria-hidden="true">💬</span>
               <span class="text-sm">Falar no WhatsApp</span>
             </button>
           </div>
@@ -368,8 +392,13 @@
 
     <!-- WhatsApp Float Button -->
     <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
-      <button @click="contactWhatsApp" class="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 sm:p-4 shadow-lg transform hover:scale-110 transition-all duration-200 animate-pulse">
-        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+      <button 
+        @click="contactWhatsApp" 
+        class="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 sm:p-4 shadow-lg transform hover:scale-110 transition-all duration-200 animate-pulse focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        aria-label="Entrar em contato via WhatsApp"
+        type="button"
+      >
+        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
         </svg>
       </button>

@@ -1,6 +1,6 @@
 // composables/useLessonsAdmin.ts
 import { doc, setDoc } from 'firebase/firestore';
-import type { LessonFormData, LessonFirestoreData, ApiResponse } from '~/types';
+import type { LessonFormData, LessonFirestoreData, VocabSectionFirestore, ApiResponse } from '~/types';
 
 export const useLessonsAdmin = () => {
     const { $firestore } = useNuxtApp();
@@ -15,10 +15,14 @@ export const useLessonsAdmin = () => {
             const firestoreData: LessonFirestoreData = {
                 title: lessonData.title,
                 vocab: lessonData.vocab,
-                // Adiciona grupos de palavras para preservar formatação
-                vocabGroups: lessonData.vocabGroups,
-                // Adiciona suporte para múltiplas seções de vocabulário
-                vocabSections: lessonData.vocabSections,
+                // Converte grupos de palavras para strings serializadas (Firestore não suporta arrays aninhados)
+                vocabGroups: lessonData.vocabGroups ? JSON.stringify(lessonData.vocabGroups) : undefined,
+                // Converte seções de vocabulário, serializando os wordGroups
+                vocabSections: lessonData.vocabSections?.map((section): VocabSectionFirestore => ({
+                    title: section.title,
+                    words: section.words,
+                    wordGroups: section.wordGroups ? JSON.stringify(section.wordGroups) : undefined
+                })),
                 // Converte questions de [string, string][] para { question: string, answer: string }[]
                 questions: lessonData.questions.map(([question, answer]) => ({
                     question,
@@ -40,7 +44,6 @@ export const useLessonsAdmin = () => {
             // Usa setDoc para salvar os dados no documento
             await setDoc(lessonRef, firestoreData);
 
-            console.log(`Lição "${lessonData.title}" salva com sucesso com o ID ${newLessonId}!`);
             return { success: true, data: newLessonId };
 
         } catch (error) {

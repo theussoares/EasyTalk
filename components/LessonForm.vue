@@ -1,17 +1,21 @@
 <template>
   <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 space-y-6">
     <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título da Lição</label>
+      <label for="lesson-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título da Lição</label>
       <input 
+        id="lesson-title"
         type="text" 
         v-model="model.title"
         placeholder="Ex: Lesson 4: Family"
         class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600"
+        required
+        aria-describedby="lesson-title-help"
       />
+      <p id="lesson-title-help" class="sr-only">Digite um título descritivo para a lição</p>
     </div>
 
-    <div class="space-y-4">
-      <h3 class="text-md font-medium text-gray-800 dark:text-gray-200 border-b dark:border-gray-600 pb-2">Seções de Vocabulário</h3>
+    <fieldset class="space-y-4">
+      <legend class="text-md font-medium text-gray-800 dark:text-gray-200 border-b dark:border-gray-600 pb-2">Seções de Vocabulário</legend>
       
       <!-- Seção de vocabulário simples (compatibilidade) -->
       <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-md border border-gray-200 dark:border-gray-600">
@@ -78,14 +82,14 @@
         </div>
       </div>
       
-      <button @click="addVocabSection" class="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      <button @click="addVocabSection" class="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
         Adicionar Seção de Vocabulário
       </button>
-    </div>
+    </fieldset>
 
-    <div class="space-y-4">
-      <h3 class="text-md font-medium text-gray-800 dark:text-gray-200 border-b dark:border-gray-600 pb-2">Perguntas e Respostas</h3>
+    <fieldset class="space-y-4">
+      <legend class="text-md font-medium text-gray-800 dark:text-gray-200 border-b dark:border-gray-600 pb-2">Perguntas e Respostas</legend>
       <div v-for="(q, index) in model.questions" :key="index" class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-md border border-gray-200 dark:border-gray-600 space-y-2 relative">
         <button @click="removeQuestion(index)" class="absolute top-2 right-2 text-gray-400 hover:text-red-500">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
@@ -93,33 +97,36 @@
         <input type="text" v-model="q[0]" placeholder="Pergunta" class="w-full px-2 py-1 border border-gray-300 rounded-md dark:bg-gray-600 dark:border-gray-500" />
         <input type="text" v-model="q[1]" placeholder="Resposta" class="w-full px-2 py-1 border border-gray-300 rounded-md dark:bg-gray-600 dark:border-gray-500" />
       </div>
-      <button @click="addQuestion" class="flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800">
+      <button @click="addQuestion" class="flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md" type="button">
         Adicionar Pergunta
       </button>
-    </div>
+    </fieldset>
 
-    <div class="space-y-4">
-        <h3 class="text-md font-medium text-gray-800 dark:text-gray-200 border-b dark:border-gray-600 pb-2">Tabelas de Gramática</h3>
+    <fieldset class="space-y-4">
+        <legend class="text-md font-medium text-gray-800 dark:text-gray-200 border-b dark:border-gray-600 pb-2">Tabelas de Gramática</legend>
         <div v-for="(g, tableIndex) in model.grammar" :key="tableIndex" class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-md border border-gray-200 dark:border-gray-600 space-y-3 relative">
-            <button @click="removeGrammarTable(tableIndex)" class="absolute top-2 right-2 text-gray-400 hover:text-red-500">
-               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            <button @click="removeGrammarTable(tableIndex)" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded-sm" type="button" :aria-label="`Remover tabela de gramática ${tableIndex + 1}`">
+               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
             </button>
-            <input type="text" v-model="g.title" placeholder="Título da Tabela" class="w-full px-3 py-2 text-md font-semibold border-b border-gray-300 bg-transparent focus:outline-none focus:border-indigo-500 dark:border-gray-600 dark:focus:border-indigo-400" />
-            <div v-for="(item, itemIndex) in g.items" :key="itemIndex" class="flex items-center gap-2">
-                <input type="text" v-model="item[0]" placeholder="Coluna 1" class="w-full px-2 py-1 border border-gray-300 rounded-md dark:bg-gray-600 dark:border-gray-500" />
-                <input type="text" v-model="item[1]" placeholder="Coluna 2" class="w-full px-2 py-1 border border-gray-300 rounded-md dark:bg-gray-600 dark:border-gray-500" />
-                <button @click="removeGrammarItem(tableIndex, itemIndex)" class="text-gray-400 hover:text-red-500">
-                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            <label :for="`grammar-title-${tableIndex}`" class="sr-only">Título da Tabela {{ tableIndex + 1 }}</label>
+            <input :id="`grammar-title-${tableIndex}`" type="text" v-model="g.title" placeholder="Título da Tabela" class="w-full px-3 py-2 text-md font-semibold border-b border-gray-300 bg-transparent focus:outline-none focus:border-indigo-500 dark:border-gray-600 dark:focus:border-indigo-400" />
+            <div v-for="(item, itemIndex) in g.items" :key="itemIndex" class="flex items-center gap-2" :aria-label="`Item ${itemIndex + 1} da tabela ${tableIndex + 1}`">
+                <label :for="`grammar-col1-${tableIndex}-${itemIndex}`" class="sr-only">Coluna 1 - Item {{ itemIndex + 1 }}</label>
+                <input :id="`grammar-col1-${tableIndex}-${itemIndex}`" type="text" v-model="item[0]" placeholder="Coluna 1" class="w-full px-2 py-1 border border-gray-300 rounded-md dark:bg-gray-600 dark:border-gray-500" />
+                <label :for="`grammar-col2-${tableIndex}-${itemIndex}`" class="sr-only">Coluna 2 - Item {{ itemIndex + 1 }}</label>
+                <input :id="`grammar-col2-${tableIndex}-${itemIndex}`" type="text" v-model="item[1]" placeholder="Coluna 2" class="w-full px-2 py-1 border border-gray-300 rounded-md dark:bg-gray-600 dark:border-gray-500" />
+                <button @click="removeGrammarItem(tableIndex, itemIndex)" class="text-gray-400 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded-sm" type="button" :aria-label="`Remover item ${itemIndex + 1} da tabela ${tableIndex + 1}`">
+                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                 </button>
             </div>
-            <button @click="addGrammarItem(tableIndex)" class="flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 mt-2">
+            <button @click="addGrammarItem(tableIndex)" class="flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md mt-2" type="button">
                 Adicionar Item
             </button>
         </div>
-        <button @click="addGrammarTable" class="flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800">
+        <button @click="addGrammarTable" class="flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md" type="button">
             Adicionar Tabela
         </button>
-    </div>
+    </fieldset>
   </div>
 </template>
 

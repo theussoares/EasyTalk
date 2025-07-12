@@ -2,17 +2,17 @@
   <div v-if="lesson" class="bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <header class="mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
       <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 dark:text-indigo-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 dark:text-indigo-400" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         {{ lesson.title || 'Título da Lição...' }}
       </h1>
     </header>
-    <main>
+    <main role="main">
       <!-- Passa ambos os formatos para o VocabSection -->
       <LessonsVocabSection 
-        v-if="(lesson.vocab && lesson.vocab.length > 0) || (lesson.vocabSections && lesson.vocabSections.length > 0)"
+        v-if="(lesson.vocab && lesson.vocab.length > 0) || (formattedVocabSections && formattedVocabSections.length > 0)"
         :vocab="lesson.vocab"
-        :vocab-groups="lesson.vocabGroups"
-        :vocab-sections="lesson.vocabSections" 
+        :vocab-groups="formattedVocabGroups"
+        :vocab-sections="formattedVocabSections" 
       />
       <LessonsQuestionSection v-if="lesson.questions && lesson.questions.length > 0" :questions="formattedQuestions" />
       <LessonsGrammarSection v-if="lesson.grammar && lesson.grammar.length > 0" :grammar-tables="formattedGrammar" />
@@ -29,6 +29,46 @@ interface IProps {
 }
 
 const props = defineProps<IProps>();
+
+// Processa os dados de vocabulário para garantir que estejam no formato correto
+const formattedVocabGroups = computed(() => {
+  if (!props.lesson?.vocabGroups) return undefined;
+  
+  // Se é string, faz o parse
+  if (typeof props.lesson.vocabGroups === 'string') {
+    try {
+      return JSON.parse(props.lesson.vocabGroups);
+    } catch (error) {
+      console.error('Erro ao parsear vocabGroups:', error);
+      return undefined;
+    }
+  }
+  
+  // Se já é array, retorna como está
+  return props.lesson.vocabGroups;
+});
+
+// Processa as seções de vocabulário para garantir que os wordGroups estejam parseados
+const formattedVocabSections = computed(() => {
+  if (!props.lesson?.vocabSections) return undefined;
+  
+  return props.lesson.vocabSections.map(section => ({
+    title: section.title,
+    words: section.words,
+    wordGroups: section.wordGroups ? 
+      (typeof section.wordGroups === 'string' ? 
+        (() => {
+          try {
+            return JSON.parse(section.wordGroups as string);
+          } catch (error) {
+            console.error('Erro ao parsear wordGroups da seção:', error);
+            return undefined;
+          }
+        })() 
+        : section.wordGroups)
+      : undefined
+  }));
+});
 
 // Converte o formato das perguntas para o formato esperado pelo QuestionSection
 const formattedQuestions = computed((): LessonQuestion[] => {

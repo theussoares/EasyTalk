@@ -8,13 +8,14 @@
       <button 
         v-if="user" 
         @click="signOutUser" 
-        class="mt-2 px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+        class="mt-2 px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors"
+        type="button"
       >
         Logout
       </button>
     </div>
 
-    <div v-if="successMessage" class="mb-6 p-4 text-green-800 bg-green-100 border border-green-300 rounded-lg dark:bg-green-900/50 dark:text-green-300 dark:border-green-700">
+    <div v-if="successMessage" class="mb-6 p-4 text-green-800 bg-green-100 border border-green-300 rounded-lg dark:bg-green-900/50 dark:text-green-300 dark:border-green-700" role="alert" aria-live="polite">
         {{ successMessage }}
     </div>
 
@@ -31,12 +32,23 @@
     </div>
 
     <div class="mt-8 flex justify-end gap-4">
-      <button @click="resetForm" class="px-6 py-2 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-600 dark:text-gray-200 dark:border-gray-500">
+      <button 
+        @click="resetForm" 
+        class="px-6 py-2 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-600 dark:text-gray-200 dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+        type="button"
+      >
         Limpar
       </button>
-      <button @click="handleSave" :disabled="isSaving" class="px-6 py-2 font-semibold text-white bg-green-600 border border-transparent rounded-lg shadow-sm hover:bg-green-700 disabled:opacity-50 disabled:bg-green-400">
+      <button 
+        @click="handleSave" 
+        :disabled="isSaving" 
+        class="px-6 py-2 font-semibold text-white bg-green-600 border border-transparent rounded-lg shadow-sm hover:bg-green-700 disabled:opacity-50 disabled:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors"
+        type="button"
+        :aria-describedby="isSaving ? 'saving-status' : undefined"
+      >
         {{ isSaving ? 'Salvando...' : 'Salvar Lição' }}
       </button>
+      <div v-if="isSaving" id="saving-status" class="sr-only">Salvando lição, aguarde...</div>
     </div>
   </div>
 </template>

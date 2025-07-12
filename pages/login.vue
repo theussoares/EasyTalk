@@ -10,11 +10,12 @@
         </p>
       </div>
 
-      <div v-if="showLoading" class="flex justify-center">
-        <div class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      <div v-if="showLoading" class="flex justify-center" role="status" aria-label="Carregando">
+        <div class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" aria-hidden="true"></div>
+        <span class="sr-only">Carregando...</span>
       </div>
 
-      <div v-else-if="error" class="mb-4 p-3 text-red-700 bg-red-100 border border-red-300 rounded-lg dark:bg-red-900/50 dark:text-red-300 dark:border-red-700">
+      <div v-else-if="error" class="mb-4 p-3 text-red-700 bg-red-100 border border-red-300 rounded-lg dark:bg-red-900/50 dark:text-red-300 dark:border-red-700" role="alert" aria-live="polite">
         {{ error }}
       </div>
 
@@ -22,6 +23,9 @@
         <button 
           @click="handleLogin" 
           class="w-full px-4 py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition-colors duration-300"
+          type="button"
+          :disabled="showLoading"
+          :aria-describedby="error ? 'error-message' : undefined"
         >
           Entrar com Google
         </button>

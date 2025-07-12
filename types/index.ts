@@ -39,12 +39,19 @@ export interface LessonFormData {
   }[];
 }
 
+// VocabSection para o Firestore (com wordGroups serializado)
+export interface VocabSectionFirestore {
+  title: string;
+  words: string[];
+  wordGroups?: string; // Serializado como JSON string para compatibilidade com Firestore
+}
+
 // Formato salvo no Firestore (objetos)
 export interface LessonFirestoreData {
   title: string;
   vocab?: string[]; // Mantém compatibilidade
-  vocabGroups?: string[][]; // Grupos de palavras separados por pontos
-  vocabSections?: VocabSection[]; // Nova propriedade
+  vocabGroups?: string; // Serializado como JSON string (Firestore não suporta arrays aninhados)
+  vocabSections?: VocabSectionFirestore[]; // Usa o tipo com wordGroups serializado
   questions: LessonQuestion[];
   grammar: LessonGrammarTable[];
 }

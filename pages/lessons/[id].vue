@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div v-if="pending" class="flex justify-center items-center h-96">
-      <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-500"></div>
+    <div v-if="pending" class="flex justify-center items-center h-96" role="status" aria-label="Carregando lição">
+      <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-500" aria-hidden="true"></div>
+      <span class="sr-only">Carregando lição...</span>
     </div>
 
     <div v-else-if="error" class="bg-red-100 dark:bg-red-900/50 border-l-4 border-red-500 text-red-700 dark:text-red-300 p-4 rounded-md" role="alert">
@@ -19,14 +20,28 @@
       <LessonsLessonView :lesson="lesson" />
 
       <footer class="mt-8 flex justify-between items-center">
-        <button @click="navigate('prev')" :disabled="isFirstLesson" class="flex items-center gap-2 px-4 py-2 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-600">
+        <button 
+          @click="navigate('prev')" 
+          :disabled="isFirstLesson" 
+          class="flex items-center gap-2 px-4 py-2 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+          type="button"
+          :aria-label="isFirstLesson ? 'Primeira lição, não é possível voltar' : 'Ir para lição anterior'"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
           Anterior
         </button>
-        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">
+        <span class="text-sm font-medium text-gray-500 dark:text-gray-400" aria-live="polite">
           Lição {{ lessonId }} de {{ totalLessons || 'N/A' }}
         </span>
-        <button @click="navigate('next')" :disabled="isLastLesson" class="flex items-center gap-2 px-4 py-2 font-semibold text-white bg-indigo-600 border border-transparent rounded-lg shadow-sm hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors dark:bg-indigo-500 dark:hover:bg-indigo-600">
+        <button 
+          @click="navigate('next')" 
+          :disabled="isLastLesson" 
+          class="flex items-center gap-2 px-4 py-2 font-semibold text-white bg-indigo-600 border border-transparent rounded-lg shadow-sm hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors dark:bg-indigo-500 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          type="button"
+          :aria-label="isLastLesson ? 'Última lição, não há próxima' : 'Ir para próxima lição'"
+        >
           Próxima
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
         </button>
       </footer>
     </div>

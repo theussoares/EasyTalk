@@ -29,7 +29,6 @@ export const useAuthSimple = () => {
                 }
             };
             
-            console.log('Login simulado bem-sucedido:', user.value.email);
         } catch (err) {
             console.error("Erro no login simulado:", err);
             error.value = 'Erro no login simulado';
