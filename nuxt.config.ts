@@ -50,8 +50,8 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'EasyTalk' },
         { property: 'og:locale', content: 'pt_BR' },
-        { property: 'og:url', content: 'https://easy-talk-one.vercel.app' },
-        { property: 'og:image', content: 'https://easy-talk-one.vercel.app/og-image.svg' },
+        { property: 'og:url', content: 'https://www.easytalknow.com.br' },
+        { property: 'og:image', content: 'https://www.easytalknow.com.br/og-image.svg' },
         { property: 'og:image:alt', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
@@ -61,7 +61,7 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
         { name: 'twitter:description', content: 'Método revolucionário para aprender inglês. Aulas individuais e em grupo com preços acessíveis.' },
-        { name: 'twitter:image', content: 'https://easy-talk-one.vercel.app/og-image.svg' },
+        { name: 'twitter:image', content: 'https://www.easytalknow.com.br/og-image.svg' },
         { name: 'twitter:image:alt', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
 
         // --- SEO adicional ---
@@ -75,7 +75,7 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icon.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/icon.png' },
-        { rel: 'canonical', href: 'https://easy-talk-one.vercel.app' },
+        { rel: 'canonical', href: 'https://www.easytalknow.com.br' },
       ]
     }
   }
