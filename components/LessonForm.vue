@@ -31,12 +31,6 @@
         <button @click="removeVocabSection(index)" class="absolute top-2 right-2 text-gray-400 hover:text-red-500">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
         </button>
-        <input 
-          type="text" 
-          v-model="section.title" 
-          placeholder="Título da seção (ex: Animals, Colors, etc.)" 
-          class="w-full px-2 py-1 font-medium border border-gray-300 rounded-md dark:bg-gray-600 dark:border-gray-500" 
-        />
         <textarea 
           v-model="vocabSectionTexts[index]"
           @blur="updateVocabSection(index)"
