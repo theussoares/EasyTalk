@@ -50,31 +50,29 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'EasyTalk' },
         { property: 'og:locale', content: 'pt_BR' },
-        { property: 'og:url', content: '/public/icon.png' },
-        { property: 'og:image', content: '/public/icon.png' },
-        { property: 'og:image:width', content: '1200' },
-        { property: 'og:image:height', content: '630' },
+        { property: 'og:url', content: 'https://easy-talk-one.vercel.app' },
+        { property: 'og:image', content: 'https://easy-talk-one.vercel.app/icon.png' },
+        { property: 'og:image:width', content: '512' },
+        { property: 'og:image:height', content: '512' },
 
         // --- Tags Twitter Card ---
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
         { name: 'twitter:description', content: 'Método revolucionário para aprender inglês. Aulas individuais e em grupo com preços acessíveis.' },
-        { name: 'twitter:image', content: '/public/icon.png' },
+        { name: 'twitter:image', content: 'https://easy-talk-one.vercel.app/icon.png' },
 
         // --- SEO adicional ---
         { name: 'robots', content: 'index, follow' },
         { name: 'googlebot', content: 'index, follow' },
-
-        { name: 'msapplication-TileColor', content: '#ffffff' },
-        { name: 'theme-color', content: '#ffffff' }
+        { name: 'msapplication-TileColor', content: '#4f46e5' },
       ],
       link: [
-        {
-          rel: 'icon',
-          type: 'image/png',
-          sizes: '16x16',
-          href: '/public/favicon-16x16.png'
-        }
+        // Favicons para melhor compatibilidade
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icon.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/icon.png' },
+        { rel: 'canonical', href: 'https://easy-talk-one.vercel.app' },
       ]
     }
   }
