@@ -51,15 +51,18 @@ export default defineNuxtConfig({
         { property: 'og:site_name', content: 'EasyTalk' },
         { property: 'og:locale', content: 'pt_BR' },
         { property: 'og:url', content: 'https://easy-talk-one.vercel.app' },
-        { property: 'og:image', content: 'https://easy-talk-one.vercel.app/icon.png' },
-        { property: 'og:image:width', content: '512' },
-        { property: 'og:image:height', content: '512' },
+        { property: 'og:image', content: 'https://easy-talk-one.vercel.app/og-image.svg' },
+        { property: 'og:image:alt', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:type', content: 'image/svg+xml' },
 
         // --- Tags Twitter Card ---
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
         { name: 'twitter:description', content: 'Método revolucionário para aprender inglês. Aulas individuais e em grupo com preços acessíveis.' },
-        { name: 'twitter:image', content: 'https://easy-talk-one.vercel.app/icon.png' },
+        { name: 'twitter:image', content: 'https://easy-talk-one.vercel.app/og-image.svg' },
+        { name: 'twitter:image:alt', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
 
         // --- SEO adicional ---
         { name: 'robots', content: 'index, follow' },
