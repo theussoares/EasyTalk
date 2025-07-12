@@ -51,25 +51,25 @@ export default defineNuxtConfig({
         { property: 'og:site_name', content: 'EasyTalk' },
         { property: 'og:locale', content: 'pt_BR' },
         { property: 'og:url', content: 'https://www.easytalknow.com.br' },
-        { property: 'og:image', content: 'https://www.easytalknow.com.br/icon.png' },
-        { property: 'og:image:secure_url', content: 'https://www.easytalknow.com.br/icon.png' },
-        { property: 'og:image:url', content: 'https://www.easytalknow.com.br/icon.png' },
+        { property: 'og:image', content: 'https://www.easytalknow.com.br/favicon.ico' },
+        { property: 'og:image:secure_url', content: 'https://www.easytalknow.com.br/favicon.ico' },
+        { property: 'og:image:url', content: 'https://www.easytalknow.com.br/favicon.ico' },
         { property: 'og:image:alt', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
-        { property: 'og:image:width', content: '512' },
-        { property: 'og:image:height', content: '512' },
-        { property: 'og:image:type', content: 'image/png' },
+        { property: 'og:image:width', content: '32' },
+        { property: 'og:image:height', content: '32' },
+        { property: 'og:image:type', content: 'image/x-icon' },
 
         // --- Meta tags básicas (fallback) ---
-        { name: 'image', content: 'https://www.easytalknow.com.br/icon.png' },
-        { name: 'thumbnail', content: 'https://www.easytalknow.com.br/icon.png' },
+        { name: 'image', content: 'https://www.easytalknow.com.br/favicon.ico' },
+        { name: 'thumbnail', content: 'https://www.easytalknow.com.br/favicon.ico' },
 
         // --- Tags Twitter Card ---
-        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:card', content: 'summary' },
         { name: 'twitter:site', content: '@EasyTalkBrasil' },
         { name: 'twitter:creator', content: '@EasyTalkBrasil' },
         { name: 'twitter:title', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
         { name: 'twitter:description', content: 'Método revolucionário para aprender inglês. Aulas individuais e em grupo com preços acessíveis.' },
-        { name: 'twitter:image', content: 'https://www.easytalknow.com.br/icon.png' },
+        { name: 'twitter:image', content: 'https://www.easytalknow.com.br/favicon.ico' },
         { name: 'twitter:image:alt', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
 
         // --- SEO adicional ---
