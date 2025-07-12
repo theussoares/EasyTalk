@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-05-15',
+  compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   ssr: true,
   modules: [
@@ -32,4 +32,46 @@ export default defineNuxtConfig({
       firebaseAppId: process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
     },
   },
+
+  app: {
+    head: {
+      title: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz',
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      meta: [
+        { name: 'description', content: 'Método revolucionário para aprender inglês rapidamente. Aulas individuais e em grupo com preços acessíveis. Suporte personalizado via WhatsApp.' },
+        { name: 'keywords', content: 'curso de inglês, aprender inglês, aulas de inglês, inglês online, conversação em inglês, gramática inglesa' },
+        { name: 'theme-color', content: '#4f46e5' }, // Indigo-600
+        { name: 'author', content: 'EasyTalk' },
+
+        // --- Tags Open Graph (para WhatsApp, Facebook, etc.) ---
+        { property: 'og:title', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
+        { property: 'og:description', content: 'Método revolucionário para aprender inglês. Aulas individuais a partir de R$ 40 e em grupo a partir de R$ 10 por pessoa. Resultados rápidos garantidos!' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'EasyTalk' },
+        { property: 'og:locale', content: 'pt_BR' },
+        { property: 'og:url', content: 'https://easy-talk-one.vercel.app' },
+        { property: 'og:image', content: 'https://easy-talk-one.vercel.app/favicon.png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+
+        // --- Tags Twitter Card ---
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
+        { name: 'twitter:description', content: 'Método revolucionário para aprender inglês. Aulas individuais e em grupo com preços acessíveis.' },
+        { name: 'twitter:image', content: 'https://easy-talk-one.vercel.app/favicon.png' },
+
+        // --- SEO adicional ---
+        { name: 'robots', content: 'index, follow' },
+        { name: 'googlebot', content: 'index, follow' },
+      ],
+      link: [
+        // Favicons múltiplos para melhor compatibilidade
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon.png' },
+        { rel: 'canonical', href: 'https://easy-talk-one.vercel.app' },
+      ]
+    }
+  }
 })
