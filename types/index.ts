@@ -4,6 +4,12 @@ export interface LessonVocab {
   word: string;
 }
 
+// Nova interface para seções de vocabulário com título
+export interface VocabSection {
+  title: string;
+  words: string[];
+}
+
 export interface LessonQuestion {
   question: string;
   answer: string;
@@ -22,7 +28,8 @@ export interface LessonGrammarTable {
 // Formato usado no formulário (arrays de tuplas)
 export interface LessonFormData {
   title: string;
-  vocab: string[];
+  vocab: string[]; // Mantém compatibilidade com formato antigo
+  vocabSections?: VocabSection[]; // Nova propriedade para múltiplas seções
   questions: [string, string][];
   grammar: {
     title: string;
@@ -33,7 +40,8 @@ export interface LessonFormData {
 // Formato salvo no Firestore (objetos)
 export interface LessonFirestoreData {
   title: string;
-  vocab: string[];
+  vocab?: string[]; // Mantém compatibilidade
+  vocabSections?: VocabSection[]; // Nova propriedade
   questions: LessonQuestion[];
   grammar: LessonGrammarTable[];
 }
@@ -42,7 +50,8 @@ export interface LessonFirestoreData {
 export interface LessonData {
   id?: string;
   title: string;
-  vocab?: string[];
+  vocab?: string[]; // Formato antigo (compatibilidade)
+  vocabSections?: VocabSection[]; // Novo formato com múltiplas seções
   questions?: [string, string][] | LessonQuestion[];
   grammar?: {
     title: string;
@@ -77,7 +86,8 @@ export interface LessonViewProps {
 }
 
 export interface VocabSectionProps {
-  vocab: string[];
+  vocab?: string[]; // Formato antigo (compatibilidade)
+  vocabSections?: VocabSection[]; // Novo formato
 }
 
 export interface QuestionSectionProps {

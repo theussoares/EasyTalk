@@ -7,7 +7,12 @@
       </h1>
     </header>
     <main>
-      <LessonsVocabSection v-if="lesson.vocab && lesson.vocab.length > 0" :vocab="lesson.vocab" />
+      <!-- Passa ambos os formatos para o VocabSection -->
+      <LessonsVocabSection 
+        v-if="(lesson.vocab && lesson.vocab.length > 0) || (lesson.vocabSections && lesson.vocabSections.length > 0)"
+        :vocab="lesson.vocab"
+        :vocab-sections="lesson.vocabSections" 
+      />
       <LessonsQuestionSection v-if="lesson.questions && lesson.questions.length > 0" :questions="formattedQuestions" />
       <LessonsGrammarSection v-if="lesson.grammar && lesson.grammar.length > 0" :grammar-tables="formattedGrammar" />
     </main>

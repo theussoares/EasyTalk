@@ -10,16 +10,46 @@
       />
     </div>
 
-    <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Vocabulário</label>
-      <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Digite as palavras separadas por vírgula.</p>
-      <textarea 
-        v-model="vocabText"
-        @blur="updateParentModel"
-        placeholder="father, mother, brother"
-        rows="5"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 font-mono dark:bg-gray-700 dark:border-gray-600"
-      />
+    <div class="space-y-4">
+      <h3 class="text-md font-medium text-gray-800 dark:text-gray-200 border-b dark:border-gray-600 pb-2">Seções de Vocabulário</h3>
+      
+      <!-- Seção de vocabulário simples (compatibilidade) -->
+      <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-md border border-gray-200 dark:border-gray-600">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Vocabulário Geral</label>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Digite as palavras separadas por vírgula.</p>
+        <textarea 
+          v-model="vocabText"
+          @blur="updateParentModel"
+          placeholder="father, mother, brother"
+          rows="3"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 font-mono dark:bg-gray-700 dark:border-gray-600"
+        />
+      </div>
+
+      <!-- Seções de vocabulário com títulos -->
+      <div v-for="(section, index) in model.vocabSections || []" :key="index" class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-md border border-blue-200 dark:border-blue-600 space-y-2 relative">
+        <button @click="removeVocabSection(index)" class="absolute top-2 right-2 text-gray-400 hover:text-red-500">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+        <input 
+          type="text" 
+          v-model="section.title" 
+          placeholder="Título da seção (ex: Animals, Colors, etc.)" 
+          class="w-full px-2 py-1 font-medium border border-gray-300 rounded-md dark:bg-gray-600 dark:border-gray-500" 
+        />
+        <textarea 
+          v-model="vocabSectionTexts[index]"
+          @blur="updateVocabSection(index)"
+          placeholder="Digite as palavras separadas por vírgula"
+          rows="2"
+          class="w-full px-2 py-1 border border-gray-300 rounded-md font-mono dark:bg-gray-600 dark:border-gray-500"
+        />
+      </div>
+      
+      <button @click="addVocabSection" class="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        Adicionar Seção de Vocabulário
+      </button>
     </div>
 
     <div class="space-y-4">
@@ -62,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-import type { LessonFormData } from '~/types';
+import type { LessonFormData, VocabSection } from '~/types';
 
 // `defineModel` cria uma propriedade reativa que pode ser modificada pelo
 // componente pai usando v-model. É a forma moderna de fazer two-way binding.
@@ -71,15 +101,49 @@ const model = defineModel<LessonFormData>({ required: true });
 // 1. Criamos uma variável local apenas para o texto do vocabulário.
 const vocabText = ref('');
 
+// Array para manter os textos das seções de vocabulário
+const vocabSectionTexts = ref<string[]>([]);
+
 // 2. Sincronizamos a variável local com o modelo de dados principal.
 // `watchEffect` garante que o campo seja preenchido se os dados mudarem.
 watchEffect(() => {
   vocabText.value = model.value.vocab.join(', ');
+  
+  // Inicializa textos das seções de vocabulário
+  if (model.value.vocabSections) {
+    vocabSectionTexts.value = model.value.vocabSections.map(section => section.words.join(', '));
+  }
 });
 
 // 3. Atualizamos o modelo principal SÓ quando o usuário termina de editar.
 const updateParentModel = () => {
   model.value.vocab = vocabText.value.split(',').map(word => word.trim()).filter(Boolean);
+};
+
+// Atualiza uma seção específica de vocabulário
+const updateVocabSection = (index: number) => {
+  if (model.value.vocabSections && model.value.vocabSections[index]) {
+    model.value.vocabSections[index].words = vocabSectionTexts.value[index]
+      .split(',')
+      .map(word => word.trim())
+      .filter(Boolean);
+  }
+};
+
+// Funções para gerenciar seções de vocabulário
+const addVocabSection = () => {
+  if (!model.value.vocabSections) {
+    model.value.vocabSections = [];
+  }
+  model.value.vocabSections.push({ title: '', words: [] });
+  vocabSectionTexts.value.push('');
+};
+
+const removeVocabSection = (index: number) => {
+  if (model.value.vocabSections) {
+    model.value.vocabSections.splice(index, 1);
+    vocabSectionTexts.value.splice(index, 1);
+  }
 };
 
 const addQuestion = () => model.value.questions.push(['', '']);
