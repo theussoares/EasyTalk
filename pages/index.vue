@@ -10,7 +10,7 @@
           <nav class="hidden md:flex items-center space-x-6">
             <a href="#features" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors text-sm font-medium">Recursos</a>
             <a href="#pricing" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors text-sm font-medium">Preços</a>
-            <button @click="redirectToWhatsApp" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium">
+            <button @click="startFreeTrial" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium">
               Começar Agora
             </button>
           </nav>
@@ -28,7 +28,7 @@
           <div class="flex flex-col space-y-3">
             <a href="#features" @click="mobileMenuOpen = false" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors py-2">Recursos</a>
             <a href="#pricing" @click="mobileMenuOpen = false" class="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors py-2">Preços</a>
-            <button @click="redirectToWhatsApp" class="bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-colors text-center mt-2">
+            <button @click="startFreeTrial" class="bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-colors text-center mt-2">
               Começar Agora
             </button>
           </div>
@@ -49,10 +49,10 @@
         
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
-          <button @click="redirectToWhatsApp" class="bg-indigo-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+          <button @click="startFreeTrial" class="bg-indigo-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
             🚀 Começar Agora - Grátis
           </button>
-          <button @click="redirectToWhatsApp" class="border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-200">
+          <button @click="contactWhatsApp" class="border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-200">
             💬 WhatsApp
           </button>
         </div>
@@ -149,7 +149,7 @@
                     Material personalizado
                   </li>
                 </ul>
-                <button @click="redirectToWhatsApp" class="w-full bg-gray-600 text-white py-3 rounded-xl hover:bg-gray-700 transition-colors font-medium">
+                <button @click="scheduleClass" class="w-full bg-gray-600 text-white py-3 rounded-xl hover:bg-gray-700 transition-colors font-medium">
                   Agendar Aula
                 </button>
               </div>
@@ -181,7 +181,7 @@
                     Material incluído
                   </li>
                 </ul>
-                <button @click="redirectToWhatsApp" class="w-full bg-indigo-600 text-white py-3 rounded-xl hover:bg-indigo-700 transition-colors font-medium">
+                <button @click="contractPackage8" class="w-full bg-indigo-600 text-white py-3 rounded-xl hover:bg-indigo-700 transition-colors font-medium">
                   Contratar Pacote
                 </button>
               </div>
@@ -210,7 +210,7 @@
                     Suporte extra
                   </li>
                 </ul>
-                <button @click="redirectToWhatsApp" class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-xl hover:from-green-700 hover:to-green-800 transition-colors font-medium">
+                <button @click="contractPackage12" class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-xl hover:from-green-700 hover:to-green-800 transition-colors font-medium">
                   Contratar Pacote
                 </button>
               </div>
@@ -234,7 +234,7 @@
                   <p class="text-sm text-gray-600 dark:text-gray-300">8 aulas: <span class="font-semibold">R$ 200/mês</span></p>
                   <p class="text-sm text-gray-600 dark:text-gray-300">12 aulas: <span class="font-semibold">R$ 300/mês</span></p>
                 </div>
-                <button @click="redirectToWhatsApp" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium">
+                <button @click="formGroup2" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium">
                   Formar Grupo
                 </button>
               </div>
@@ -252,7 +252,7 @@
                   <p class="text-sm text-gray-600 dark:text-gray-300">8 aulas: <span class="font-semibold">R$ 160/mês</span></p>
                   <p class="text-sm text-gray-600 dark:text-gray-300">12 aulas: <span class="font-semibold">R$ 240/mês</span></p>
                 </div>
-                <button @click="redirectToWhatsApp" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium">
+                <button @click="formGroup3" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium">
                   Formar Grupo
                 </button>
               </div>
@@ -270,7 +270,7 @@
                   <p class="text-sm text-gray-600 dark:text-gray-300">8 aulas: <span class="font-semibold">R$ 120/mês</span></p>
                   <p class="text-sm text-gray-600 dark:text-gray-300">12 aulas: <span class="font-semibold">R$ 180/mês</span></p>
                 </div>
-                <button @click="redirectToWhatsApp" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium">
+                <button @click="formGroup4" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium">
                   Formar Grupo
                 </button>
               </div>
@@ -291,7 +291,7 @@
                   <p class="text-sm text-gray-600 dark:text-gray-300">8 aulas: <span class="font-semibold">R$ 80/mês</span></p>
                   <p class="text-sm text-gray-600 dark:text-gray-300">12 aulas: <span class="font-semibold">R$ 120/mês</span></p>
                 </div>
-                <button @click="redirectToWhatsApp" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium">
+                <button @click="formGroup5" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium">
                   Formar Grupo
                 </button>
               </div>
@@ -311,10 +311,10 @@
           Junte-se a milhares de pessoas que já dominaram o inglês com nosso método revolucionário
         </p>
         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
-          <button @click="redirectToWhatsApp" class="bg-white text-indigo-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg">
+          <button @click="startFreeTrial" class="bg-white text-indigo-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg">
             🚀 Começar Agora - Primeira Aula Grátis
           </button>
-          <button @click="redirectToWhatsApp" class="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-white hover:text-indigo-600 transition-all duration-200">
+          <button @click="contactWhatsApp" class="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-white hover:text-indigo-600 transition-all duration-200">
             💬 Tirar Dúvidas no WhatsApp
           </button>
         </div>
@@ -341,19 +341,19 @@
           <div>
             <h4 class="font-semibold mb-4">Suporte</h4>
             <ul class="space-y-2">
-              <li><button @click="redirectToWhatsApp" class="text-gray-300 hover:text-white transition-colors">Central de Ajuda</button></li>
-              <li><button @click="redirectToWhatsApp" class="text-gray-300 hover:text-white transition-colors">Fale Conosco</button></li>
-              <li><button @click="redirectToWhatsApp" class="text-gray-300 hover:text-white transition-colors">WhatsApp</button></li>
+              <li><button @click="getSupport" class="text-gray-300 hover:text-white transition-colors">Central de Ajuda</button></li>
+              <li><button @click="getContact" class="text-gray-300 hover:text-white transition-colors">Fale Conosco</button></li>
+              <li><button @click="contactWhatsApp" class="text-gray-300 hover:text-white transition-colors">WhatsApp</button></li>
             </ul>
           </div>
           
           <div>
             <h4 class="font-semibold mb-4">Contato</h4>
-            <button @click="redirectToWhatsApp" class="flex items-center text-gray-300 hover:text-white transition-colors mb-2">
+            <button @click="getContact" class="flex items-center text-gray-300 hover:text-white transition-colors mb-2">
               <span class="mr-2">📱</span>
               <span class="text-sm">+55 67 99217-1768</span>
             </button>
-            <button @click="redirectToWhatsApp" class="flex items-center text-gray-300 hover:text-white transition-colors">
+            <button @click="contactWhatsApp" class="flex items-center text-gray-300 hover:text-white transition-colors">
               <span class="mr-2">💬</span>
               <span class="text-sm">Falar no WhatsApp</span>
             </button>
@@ -368,7 +368,7 @@
 
     <!-- WhatsApp Float Button -->
     <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
-      <button @click="redirectToWhatsApp" class="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 sm:p-4 shadow-lg transform hover:scale-110 transition-all duration-200 animate-pulse">
+      <button @click="contactWhatsApp" class="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 sm:p-4 shadow-lg transform hover:scale-110 transition-all duration-200 animate-pulse">
         <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
         </svg>
@@ -381,17 +381,73 @@
 // State para mobile menu
 const mobileMenuOpen = ref(false);
 
-// Função para redirecionar para WhatsApp
-const redirectToWhatsApp = () => {
+// Função genérica para redirecionar para WhatsApp
+const redirectToWhatsApp = (message?: string) => {
   const phoneNumber = "5567992171768";
-  const message = "Olá! Tenho interesse no curso EasyTalk e gostaria de saber mais informações.";
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  const defaultMessage = "Olá! Tenho interesse no curso EasyTalk e gostaria de saber mais informações.";
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message || defaultMessage)}`;
   
   // Abre em nova aba
   window.open(whatsappUrl, '_blank');
   
   // Fecha menu mobile se estiver aberto
   mobileMenuOpen.value = false;
+};
+
+// Funções específicas para cada tipo de interesse
+const startFreeTrial = () => {
+  const message = "🚀 Olá! Quero começar com a primeira aula grátis do EasyTalk. Quando posso agendar?";
+  redirectToWhatsApp(message);
+};
+
+const contactWhatsApp = () => {
+  const message = "💬 Olá! Gostaria de tirar algumas dúvidas sobre o curso EasyTalk. Vocês podem me ajudar?";
+  redirectToWhatsApp(message);
+};
+
+const scheduleClass = () => {
+  const message = "📅 Olá! Tenho interesse em agendar uma aula avulsa de inglês. Quais horários estão disponíveis?";
+  redirectToWhatsApp(message);
+};
+
+const contractPackage8 = () => {
+  const message = "📦 Olá! Tenho interesse no pacote de 8 aulas individuais (2x por semana) por R$ 240/mês. Como funciona?";
+  redirectToWhatsApp(message);
+};
+
+const contractPackage12 = () => {
+  const message = "🎯 Olá! Quero contratar o pacote de 12 aulas individuais (3x por semana) por R$ 360/mês. Quando posso começar?";
+  redirectToWhatsApp(message);
+};
+
+const formGroup2 = () => {
+  const message = "👥 Olá! Tenho interesse em formar um grupo de 2 pessoas para aulas de inglês (R$ 25 por aula/pessoa). Como posso organizar isso?";
+  redirectToWhatsApp(message);
+};
+
+const formGroup3 = () => {
+  const message = "👥 Olá! Tenho interesse em formar um grupo de 3 pessoas para aulas de inglês (R$ 20 por aula/pessoa). Como posso organizar isso?";
+  redirectToWhatsApp(message);
+};
+
+const formGroup4 = () => {
+  const message = "👥 Olá! Tenho interesse em formar um grupo de 4 pessoas para aulas de inglês (R$ 15 por aula/pessoa). Como posso organizar isso?";
+  redirectToWhatsApp(message);
+};
+
+const formGroup5 = () => {
+  const message = "👥 Olá! Tenho interesse em formar um grupo de 5 pessoas para aulas de inglês (R$ 10 por aula/pessoa). Como posso organizar isso?";
+  redirectToWhatsApp(message);
+};
+
+const getSupport = () => {
+  const message = "🆘 Olá! Preciso de ajuda e suporte sobre o curso EasyTalk. Vocês podem me atender?";
+  redirectToWhatsApp(message);
+};
+
+const getContact = () => {
+  const message = "📞 Olá! Gostaria de entrar em contato para conhecer melhor o EasyTalk. Estou interessado(a) em aprender inglês!";
+  redirectToWhatsApp(message);
 };
 
 // SEO Meta tags
