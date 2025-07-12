@@ -101,7 +101,7 @@ useSeoMeta({
     const vocabPreview = lesson.value.vocab ? lesson.value.vocab.slice(0, 5).join(', ') : '';
     return `${lesson.value.title}. Vocabulário: ${vocabPreview}. Aprenda inglês com o método EasyTalk.`;
   },
-  ogImage: 'https://www.easytalknow.com.br/og-image.svg',
+  ogImage: 'https://www.easytalknow.com.br/icon.png',
   ogUrl: () => `https://www.easytalknow.com.br/lessons/${lessonId.value}`,
   twitterCard: 'summary_large_image',
   twitterTitle: () => lesson.value ? `${lesson.value.title} - EasyTalk` : `Lição ${lessonId.value} - EasyTalk`,
@@ -111,7 +111,7 @@ useSeoMeta({
     const vocabPreview = lesson.value.vocab ? lesson.value.vocab.slice(0, 5).join(', ') : '';
     return `${lesson.value.title}. Vocabulário: ${vocabPreview}. Aprenda inglês com o método EasyTalk.`;
   },
-  twitterImage: 'https://www.easytalknow.com.br/og-image.svg',
+  twitterImage: 'https://www.easytalknow.com.br/icon.png',
 });
 
 // Lógica para navegação
