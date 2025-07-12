@@ -17,8 +17,8 @@
             <code class="block p-2 bg-gray-100 dark:bg-gray-700 rounded">{{ baseUrl }}/lessons/1</code>
           </div>
           <div>
-            <label class="block text-sm font-medium mb-2">URL da Imagem:</label>
-            <code class="block p-2 bg-gray-100 dark:bg-gray-700 rounded">{{ baseUrl }}/icon.png</code>
+            <label class="block text-sm font-medium mb-2">URL da Imagem Open Graph:</label>
+            <code class="block p-2 bg-gray-100 dark:bg-gray-700 rounded">{{ baseUrl }}/og-image.svg</code>
           </div>
         </div>
       </div>
@@ -40,11 +40,25 @@
                 <strong>{{ tag.property || tag.name }}</strong>: {{ tag.content }}
               </div>
             </div>
-          </div>
-          
-          <div class="mt-4">
+          </div>            <div class="mt-4">
             <h3 class="font-semibold mb-2">Teste de URLs de Imagem:</h3>
             <div class="space-y-4">
+              <div class="flex items-center gap-4">
+                <img 
+                  :src="`${baseUrl}/og-image.svg`" 
+                  alt="Test og-image.svg" 
+                  class="w-32 h-16 object-cover rounded border"
+                  @load="ogSvgLoaded = true"
+                  @error="ogSvgError = true"
+                />
+                <div>
+                  <div><strong>og-image.svg (1200x630)</strong></div>
+                  <div v-if="ogSvgLoaded" class="text-green-600">✅ Carregada</div>
+                  <div v-if="ogSvgError" class="text-red-600">❌ Erro</div>
+                  <div v-if="!ogSvgLoaded && !ogSvgError" class="text-yellow-600">⏳ Carregando...</div>
+                </div>
+              </div>
+              
               <div class="flex items-center gap-4">
                 <img 
                   :src="`${baseUrl}/icon.png`" 
@@ -76,27 +90,11 @@
                   <div v-if="!faviconLoaded && !faviconError" class="text-yellow-600">⏳ Carregando...</div>
                 </div>
               </div>
-              
-              <div class="flex items-center gap-4">
-                <img 
-                  :src="`${baseUrl}/favicon-16x16.png`" 
-                  alt="Test favicon-16x16.png" 
-                  class="w-16 h-16 object-cover rounded border"
-                  @load="favicon16Loaded = true"
-                  @error="favicon16Error = true"
-                />
-                <div>
-                  <div><strong>favicon-16x16.png</strong></div>
-                  <div v-if="favicon16Loaded" class="text-green-600">✅ Carregada</div>
-                  <div v-if="favicon16Error" class="text-red-600">❌ Erro</div>
-                  <div v-if="!favicon16Loaded && !favicon16Error" class="text-yellow-600">⏳ Carregando...</div>
-                </div>
-              </div>
             </div>
             
             <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-              <p class="text-sm"><strong>Teste direto:</strong></p>
-              <p class="text-sm">Abra em nova aba: <a :href="`${baseUrl}/icon.png`" target="_blank" class="text-blue-600 underline">{{ baseUrl }}/icon.png</a></p>
+              <p class="text-sm"><strong>Teste direto SVG:</strong></p>
+              <p class="text-sm">Abra em nova aba: <a :href="`${baseUrl}/og-image.svg`" target="_blank" class="text-blue-600 underline">{{ baseUrl }}/og-image.svg</a></p>
             </div>
           </div>
         </div>
@@ -145,6 +143,8 @@ const baseUrl = 'https://www.easytalknow.com.br';
 const domMetaTags = ref<Array<{property?: string, name?: string, content: string}>>([]);
 const imageLoaded = ref(false);
 const imageError = ref(false);
+const ogSvgLoaded = ref(false);
+const ogSvgError = ref(false);
 const iconLoaded = ref(false);
 const iconError = ref(false);
 const faviconLoaded = ref(false);
@@ -170,23 +170,23 @@ useSeoMeta({
   description: 'Página para testar e validar meta tags Open Graph e Twitter Cards do EasyTalk',
   ogTitle: 'Teste de Meta Tags - EasyTalk',
   ogDescription: 'Página para testar e validar meta tags Open Graph e Twitter Cards do EasyTalk',
-  ogImage: `${baseUrl}/favicon.ico`,
+  ogImage: `${baseUrl}/og-image.svg`,
   ogUrl: `${baseUrl}/test-meta`,
-  twitterCard: 'summary',
+  twitterCard: 'summary_large_image',
   twitterTitle: 'Teste de Meta Tags - EasyTalk',
   twitterDescription: 'Página para testar e validar meta tags Open Graph e Twitter Cards do EasyTalk',
-  twitterImage: `${baseUrl}/favicon.ico`,
+  twitterImage: `${baseUrl}/og-image.svg`,
 });
 
 // Meta tags principais para exibir
 const metaTags = [
   { property: 'og:title', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
   { property: 'og:description', content: 'Método revolucionário para aprender inglês...' },
-  { property: 'og:image', content: `${baseUrl}/favicon.ico` },
+  { property: 'og:image', content: `${baseUrl}/og-image.svg` },
   { property: 'og:url', content: baseUrl },
   { property: 'og:type', content: 'website' },
-  { name: 'twitter:card', content: 'summary' },
+  { name: 'twitter:card', content: 'summary_large_image' },
   { name: 'twitter:title', content: 'EasyTalk - Aprenda Inglês de Forma Rápida e Eficaz' },
-  { name: 'twitter:image', content: `${baseUrl}/favicon.ico` },
+  { name: 'twitter:image', content: `${baseUrl}/og-image.svg` },
 ];
 </script>
