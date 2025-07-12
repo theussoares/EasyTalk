@@ -3,7 +3,7 @@
     <div class="min-h-screen bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 font-sans transition-colors duration-300">
       <header class="bg-white dark:bg-gray-800 shadow-sm">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center" role="navigation" aria-label="Navegação principal">
-          <NuxtLink to="/" class="text-xl font-bold text-indigo-600 dark:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md px-2 py-1">
+          <NuxtLink v-if="!$route.path.includes('lessons')" to="/" class="text-xl font-bold text-indigo-600 dark:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md px-2 py-1">
             English Lessons
           </NuxtLink>
 
