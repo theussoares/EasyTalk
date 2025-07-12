@@ -16,14 +16,31 @@
       <!-- Seção de vocabulário simples (compatibilidade) -->
       <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-md border border-gray-200 dark:border-gray-600">
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Vocabulário Geral</label>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Digite as palavras separadas por vírgula.</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">
+          Use <strong>vírgula (,)</strong> para separar palavras | Use <strong>ponto (.)</strong> para quebrar linha
+        </p>
+        <p class="text-xs text-blue-600 dark:text-blue-400 mb-2 font-mono">
+          Exemplo: book, pen, pencil. what is (what's), this, it is (it's)
+        </p>
         <textarea 
           v-model="vocabText"
           @blur="updateParentModel"
-          placeholder="father, mother, brother"
-          rows="3"
-          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 font-mono dark:bg-gray-700 dark:border-gray-600"
+          placeholder="book, pen, pencil, table, chair.&#10;what is (what's), this, it is (it's), a"
+          rows="4"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm leading-relaxed dark:bg-gray-700 dark:border-gray-600"
         />
+        
+        <!-- Preview do vocabulário formatado -->
+        <div v-if="formattedVocabPreview.length > 0" class="mt-3 p-2 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200 dark:border-blue-600">
+          <p class="text-xs font-medium text-blue-800 dark:text-blue-300 mb-2">Preview:</p>
+          <div class="space-y-2">
+            <div v-for="(line, index) in formattedVocabPreview" :key="index" class="flex flex-wrap gap-x-3 gap-y-1">
+              <span v-for="(word, wordIndex) in line" :key="wordIndex" class="px-2 py-1 bg-white dark:bg-gray-700 border border-blue-200 dark:border-blue-600 rounded text-xs font-mono">
+                {{ word }}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Seções de vocabulário com títulos -->
@@ -31,13 +48,34 @@
         <button @click="removeVocabSection(index)" class="absolute top-2 right-2 text-gray-400 hover:text-red-500">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
         </button>
+        <input 
+          type="text" 
+          v-model="section.title" 
+          placeholder="Título da seção (ex: Família, Animais)" 
+          class="w-full px-2 py-1 border border-gray-300 rounded-md font-medium dark:bg-gray-600 dark:border-gray-500"
+        />
+        <p class="text-xs text-blue-600 dark:text-blue-400 font-mono">
+          Use vírgula (,) para separar | Use ponto (.) para quebrar linha
+        </p>
         <textarea 
           v-model="vocabSectionTexts[index]"
           @blur="updateVocabSection(index)"
-          placeholder="Digite as palavras separadas por vírgula"
-          rows="2"
-          class="w-full px-2 py-1 border border-gray-300 rounded-md font-mono dark:bg-gray-600 dark:border-gray-500"
+          placeholder="book, pen, pencil.&#10;what is (what's), this, it is (it's)"
+          rows="3"
+          class="w-full px-2 py-1 border border-gray-300 rounded-md font-mono text-sm leading-relaxed dark:bg-gray-600 dark:border-gray-500"
         />
+        
+        <!-- Preview para seções de vocabulário -->
+        <div v-if="getVocabSectionPreview(index).length > 0" class="mt-2 p-2 bg-white dark:bg-gray-800 rounded border border-blue-200 dark:border-blue-600">
+          <p class="text-xs font-medium text-blue-800 dark:text-blue-300 mb-2">Preview:</p>
+          <div class="space-y-2">
+            <div v-for="(line, lineIndex) in getVocabSectionPreview(index)" :key="lineIndex" class="flex flex-wrap gap-x-3 gap-y-1">
+              <span v-for="(word, wordIndex) in line" :key="wordIndex" class="px-2 py-1 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-600 rounded text-xs font-mono">
+                {{ word }}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
       
       <button @click="addVocabSection" class="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800">
@@ -98,29 +136,106 @@ const vocabText = ref('');
 // Array para manter os textos das seções de vocabulário
 const vocabSectionTexts = ref<string[]>([]);
 
-// 2. Sincronizamos a variável local com o modelo de dados principal.
-// `watchEffect` garante que o campo seja preenchido se os dados mudarem.
-watchEffect(() => {
-  vocabText.value = model.value.vocab.join(', ');
+// Variáveis para armazenar a formatação original (preserva pontos e vírgulas)
+const originalVocabFormat = ref('');
+const originalSectionFormats = ref<string[]>([]);
+
+// Computed para mostrar preview do vocabulário formatado
+const formattedVocabPreview = computed(() => {
+  if (!vocabText.value.trim()) return [];
   
-  // Inicializa textos das seções de vocabulário
-  if (model.value.vocabSections) {
-    vocabSectionTexts.value = model.value.vocabSections.map(section => section.words.join(', '));
+  // Separa por pontos para criar linhas
+  const lines = vocabText.value.split('.').map(line => line.trim()).filter(Boolean);
+  
+  return lines.map(line => 
+    // Separa cada linha por vírgulas para criar palavras
+    line.split(',').map(word => word.trim()).filter(Boolean)
+  );
+});
+
+// Função para preview das seções de vocabulário
+const getVocabSectionPreview = (index: number) => {
+  const text = vocabSectionTexts.value[index];
+  if (!text || !text.trim()) return [];
+  
+  // Separa por pontos para criar linhas
+  const lines = text.split('.').map(line => line.trim()).filter(Boolean);
+  
+  return lines.map(line => 
+    // Separa cada linha por vírgulas para criar palavras
+    line.split(',').map(word => word.trim()).filter(Boolean)
+  );
+};
+
+// 2. Sincronizamos a variável local com o modelo de dados principal.
+// Preserva a formatação original do usuário
+watchEffect(() => {
+  // Só inicializa se o campo estiver vazio e houver dados
+  if (!vocabText.value && model.value.vocab.length > 0 && !originalVocabFormat.value) {
+    vocabText.value = model.value.vocab.join(', ');
+    originalVocabFormat.value = vocabText.value;
+  }
+  
+  // Inicializa textos das seções apenas quando necessário
+  if (model.value.vocabSections && vocabSectionTexts.value.length !== model.value.vocabSections.length) {
+    model.value.vocabSections.forEach((section, index) => {
+      if (!vocabSectionTexts.value[index] && !originalSectionFormats.value[index]) {
+        vocabSectionTexts.value[index] = section.words.join(', ');
+        originalSectionFormats.value[index] = vocabSectionTexts.value[index];
+      }
+    });
   }
 });
 
 // 3. Atualizamos o modelo principal SÓ quando o usuário termina de editar.
 const updateParentModel = () => {
-  model.value.vocab = vocabText.value.split(',').map(word => word.trim()).filter(Boolean);
+  // Salva a formatação original digitada pelo usuário
+  originalVocabFormat.value = vocabText.value;
+  
+  if (vocabText.value.trim()) {
+    // Separa por pontos para criar grupos de palavras
+    const wordGroups = vocabText.value.split('.').map(line => {
+      return line.split(',')
+        .map(word => word.trim())
+        .filter(Boolean);
+    }).filter(group => group.length > 0);
+    
+    // Salva os grupos para preservar a formatação
+    model.value.vocabGroups = wordGroups;
+    
+    // Mantém compatibilidade: array único de todas as palavras
+    model.value.vocab = wordGroups.flat();
+  } else {
+    model.value.vocabGroups = [];
+    model.value.vocab = [];
+  }
 };
 
 // Atualiza uma seção específica de vocabulário
 const updateVocabSection = (index: number) => {
   if (model.value.vocabSections && model.value.vocabSections[index]) {
-    model.value.vocabSections[index].words = vocabSectionTexts.value[index]
-      .split(',')
-      .map(word => word.trim())
-      .filter(Boolean);
+    // Salva a formatação original
+    originalSectionFormats.value[index] = vocabSectionTexts.value[index];
+    
+    const text = vocabSectionTexts.value[index];
+    
+    if (text && text.trim()) {
+      // Separa por pontos para criar grupos de palavras
+      const wordGroups = text.split('.').map(line => {
+        return line.split(',')
+          .map(word => word.trim())
+          .filter(Boolean);
+      }).filter(group => group.length > 0);
+      
+      // Salva os grupos para preservar a formatação
+      model.value.vocabSections[index].wordGroups = wordGroups;
+      
+      // Mantém compatibilidade: array único de todas as palavras
+      model.value.vocabSections[index].words = wordGroups.flat();
+    } else {
+      model.value.vocabSections[index].wordGroups = [];
+      model.value.vocabSections[index].words = [];
+    }
   }
 };
 

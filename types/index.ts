@@ -8,6 +8,7 @@ export interface LessonVocab {
 export interface VocabSection {
   title: string;
   words: string[];
+  wordGroups?: string[][]; // Grupos de palavras separados por pontos
 }
 
 export interface LessonQuestion {
@@ -29,6 +30,7 @@ export interface LessonGrammarTable {
 export interface LessonFormData {
   title: string;
   vocab: string[]; // Mantém compatibilidade com formato antigo
+  vocabGroups?: string[][]; // Grupos de palavras separados por pontos (para vocab geral)
   vocabSections?: VocabSection[]; // Nova propriedade para múltiplas seções
   questions: [string, string][];
   grammar: {
@@ -41,6 +43,7 @@ export interface LessonFormData {
 export interface LessonFirestoreData {
   title: string;
   vocab?: string[]; // Mantém compatibilidade
+  vocabGroups?: string[][]; // Grupos de palavras separados por pontos
   vocabSections?: VocabSection[]; // Nova propriedade
   questions: LessonQuestion[];
   grammar: LessonGrammarTable[];
@@ -51,6 +54,7 @@ export interface LessonData {
   id?: string;
   title: string;
   vocab?: string[]; // Formato antigo (compatibilidade)
+  vocabGroups?: string[][]; // Grupos de palavras separados por pontos (para vocab geral)
   vocabSections?: VocabSection[]; // Novo formato com múltiplas seções
   questions?: [string, string][] | LessonQuestion[];
   grammar?: {

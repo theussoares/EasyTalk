@@ -11,6 +11,7 @@
       <LessonsVocabSection 
         v-if="(lesson.vocab && lesson.vocab.length > 0) || (lesson.vocabSections && lesson.vocabSections.length > 0)"
         :vocab="lesson.vocab"
+        :vocab-groups="lesson.vocabGroups"
         :vocab-sections="lesson.vocabSections" 
       />
       <LessonsQuestionSection v-if="lesson.questions && lesson.questions.length > 0" :questions="formattedQuestions" />

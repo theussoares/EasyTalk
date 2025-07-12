@@ -15,6 +15,8 @@ export const useLessonsAdmin = () => {
             const firestoreData: LessonFirestoreData = {
                 title: lessonData.title,
                 vocab: lessonData.vocab,
+                // Adiciona grupos de palavras para preservar formatação
+                vocabGroups: lessonData.vocabGroups,
                 // Adiciona suporte para múltiplas seções de vocabulário
                 vocabSections: lessonData.vocabSections,
                 // Converte questions de [string, string][] para { question: string, answer: string }[]
