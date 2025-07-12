@@ -24,6 +24,45 @@
       </div>
 
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+        <h2 class="text-xl font-semibold mb-4">Teste em Tempo Real</h2>
+        <div class="space-y-4">
+          <button 
+            @click="checkMetaTags"
+            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+          >
+            Verificar Meta Tags no DOM
+          </button>
+          
+          <div v-if="domMetaTags.length > 0" class="mt-4">
+            <h3 class="font-semibold mb-2">Meta Tags Encontradas no DOM:</h3>
+            <div class="space-y-1 text-sm font-mono max-h-60 overflow-y-auto">
+              <div v-for="(tag, index) in domMetaTags" :key="index" class="p-2 bg-gray-100 dark:bg-gray-700 rounded">
+                <strong>{{ tag.property || tag.name }}</strong>: {{ tag.content }}
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4">
+            <h3 class="font-semibold mb-2">Status da Imagem:</h3>
+            <div class="flex items-center gap-4">
+              <img 
+                :src="`${baseUrl}/icon.png`" 
+                alt="Test image" 
+                class="w-16 h-16 object-cover rounded"
+                @load="imageLoaded = true"
+                @error="imageError = true"
+              />
+              <div>
+                <div v-if="imageLoaded" class="text-green-600">✅ Imagem carregada com sucesso</div>
+                <div v-if="imageError" class="text-red-600">❌ Erro ao carregar imagem</div>
+                <div v-if="!imageLoaded && !imageError" class="text-yellow-600">⏳ Carregando imagem...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
         <h2 class="text-xl font-semibold mb-4">Ferramentas de Teste</h2>
         <div class="grid md:grid-cols-2 gap-4">
           <a 
@@ -61,6 +100,23 @@
 
 <script setup lang="ts">
 const baseUrl = 'https://www.easytalknow.com.br';
+
+// Estados reativos
+const domMetaTags = ref<Array<{property?: string, name?: string, content: string}>>([]);
+const imageLoaded = ref(false);
+const imageError = ref(false);
+
+// Função para verificar meta tags no DOM
+const checkMetaTags = () => {
+  if (process.client) {
+    const metaElements = document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]');
+    domMetaTags.value = Array.from(metaElements).map(meta => ({
+      property: meta.getAttribute('property') || undefined,
+      name: meta.getAttribute('name') || undefined,
+      content: meta.getAttribute('content') || ''
+    }));
+  }
+};
 
 // Define meta tags para esta página de teste
 useSeoMeta({
