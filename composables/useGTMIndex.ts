@@ -59,10 +59,6 @@ export const useGTMIndex = () => {
     try {
       if (process.client && typeof window !== 'undefined' && (window as any).dataLayer) {
         (window as any).dataLayer.push(event)
-        
-        if (process.env.NODE_ENV === 'development') {
-          console.log('GTM Event sent:', event)
-        }
       }
     } catch (error) {
       console.error('Erro ao enviar evento GTM:', error)
